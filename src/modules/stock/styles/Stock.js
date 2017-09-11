@@ -2,7 +2,6 @@ import { Platform, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: 'black',
 		...Platform.select({
 			ios: {
 				paddingTop: 64
@@ -24,12 +23,10 @@ const styles = StyleSheet.create({
 		marginTop: 30
 	},
 	listHeadingLeft: {
-		color: 'white',
 		fontWeight: 'bold',
 		fontSize: 18
 	},
 	listHeadingRight: {
-		color: 'white',
 		...Platform.select({
 			ios: {
 				fontSize: 15

@@ -18,6 +18,9 @@ import CardTwo from './components/CardTwo';
 import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/Stock';
 import { iconsMap } from '../../utils/AppIcons';
+import axios from 'axios';
+
+const YAHOO_API_URL = "http://download.finance.yahoo.com/d/quotes.csv";
 
 class Stock extends Component {
 	constructor(props) {
@@ -30,6 +33,7 @@ class Stock extends Component {
 
 		this._onRefresh = this._onRefresh.bind(this);
 		this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
+		this.getQuote('GOOGL');
 	}
 
 	componentWillMount() {
@@ -37,6 +41,17 @@ class Stock extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ isLoading: false });
+	}
+
+	getQuote(s) {
+		let f = 'abo';
+		let url = `${YAHOO_API_URL}?f=${f}&s=${s}`;
+		axios.get(url).then(res => {
+			this.setState({
+				quote: res.data,
+				isLoading: false
+			})
+		})
 	}
 
 
@@ -53,11 +68,7 @@ class Stock extends Component {
 	}
 
 	render() {
-		const { nowPlayingMovies, popularMovies } = this.props;
-		const iconPlay = <Icon name="md-play" size={21} color="#9F9F9F" style={{ paddingLeft: 3, width: 22 }} />;
-		const iconTop = <Icon name="md-trending-up" size={21} color="#9F9F9F" style={{ width: 22 }} />;
-		const iconUp = <Icon name="md-recording" size={21} color="#9F9F9F" style={{ width: 22 }} />;
-		const iconPopular = <Icon name="md-heart" size={21} color="#9F9F9F" style={{ width: 22 }} />;
+		const { quote } = this.state;
 
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
@@ -74,6 +85,9 @@ class Stock extends Component {
 						progressBackgroundColor="white"
 					/>
 				}>
+				<Text>
+					{quote}
+				</Text>
 			</ScrollView>
 		);
 	}
