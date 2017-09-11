@@ -33,7 +33,7 @@ class Stock extends Component {
 
 		this._onRefresh = this._onRefresh.bind(this);
 		this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
-		this.getQuote('GOOGL');
+		this.getQuote('GOOGL,AAPL,MSFT,FB');
 	}
 
 	componentWillMount() {
