@@ -13,12 +13,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as moviesActions from './stock.actions';
-import CardOne from './components/CardOne';
-import CardTwo from './components/CardTwo';
 import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/Stock';
 import { iconsMap } from '../../utils/AppIcons';
-import axios from 'axios';
 
 const YAHOO_API_URL = "http://download.finance.yahoo.com/d/quotes.csv";
 
@@ -33,25 +30,15 @@ class Stock extends Component {
 
 		this._onRefresh = this._onRefresh.bind(this);
 		this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
-		this.getQuote('GOOGL,AAPL,MSFT,FB');
 	}
 
-	componentWillMount() {
+	componentDidMount() {
+		const { watchlist } = this.props;
+		this.props.actions.handleUpdateStocks(watchlist);
 	}
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ isLoading: false });
-	}
-
-	getQuote(s) {
-		let f = 'abo';
-		let url = `${YAHOO_API_URL}?f=${f}&s=${s}`;
-		axios.get(url).then(res => {
-			this.setState({
-				quote: res.data,
-				isLoading: false
-			})
-		})
 	}
 
 
@@ -95,7 +82,9 @@ class Stock extends Component {
 
 Stock.propTypes = {
 	actions: PropTypes.object.isRequired,
-	navigator: PropTypes.object
+	navigator: PropTypes.object,
+	watchlistResult: PropTypes.object.isRequired,
+	watchlist: PropTypes.array.isRequired
 };
 
 let navigatorStyle = {};
@@ -121,6 +110,8 @@ Stock.navigatorStyle = {
 
 function mapStateToProps(state, ownProps) {
 	return {
+		watchlistResult: state.stock.watchlistResult,
+		watchlist: state.stock.watchlist
 	};
 }
 

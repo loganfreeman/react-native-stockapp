@@ -3,7 +3,9 @@ export default {
 		watchlist: [
 			{ symbol: 'AAPL', share: 100 },
 			{ symbol: 'GOOG', share: 100 },
-		]
+		],
+
+		watchlistResult: {}
 	}
 
 };
