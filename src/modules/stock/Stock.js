@@ -33,8 +33,8 @@ class Stock extends Component {
 	}
 
 	componentDidMount() {
-		const { watchlist } = this.props;
-		this.props.actions.handleUpdateStocks(watchlist).then(() => {
+		const symbols = this.props.watchlist.map(item => item.symbol.toUpperCase());
+		this.props.actions.handleUpdateStocks(symbols).then(() => {
 			this.setState({
 				isLoading: false
 			})
