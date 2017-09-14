@@ -1,4 +1,4 @@
-exports.getStock = function getStock(opts, type) {
+export function getStock(opts, type) {
   const defs = {
     baseURL: 'https://query.yahooapis.com/v1/public/yql?q=',
     query: {
@@ -34,7 +34,7 @@ exports.getStock = function getStock(opts, type) {
   return fetch(url);  // eslint-disable-line no-undef
 };
 
-exports.properties = [
+export const properties = [
   'AfterHoursChangeRealtime',
   'AnnualizedGain',
   'Ask',
@@ -119,7 +119,7 @@ exports.properties = [
   'YearRange',
 ];
 
-exports.getNews = function getNews(symbol) {
+export function getNews(symbol) {
   const url = `https://feeds.finance.yahoo.com/rss/2.0/headline?s=${symbol}&region=US&lang=en-US`;
   console.log(url);
   return fetch(url)  // eslint-disable-line no-undef
@@ -127,7 +127,7 @@ exports.getNews = function getNews(symbol) {
     .catch(err => console.error(err));
 };
 
-exports.symbolSuggest = function symbolSuggest(query) {
+export function symbolSuggest(query) {
   const url = `http://d.yimg.com/aq/autoc?query=${query}&region=US&lang=en-US&callback=YAHOO.util.ScriptNodeDataSource.callbacks`;
   console.log(url);
   return fetch(url).catch(err => console.error(err));  // eslint-disable-line no-undef
