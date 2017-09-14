@@ -34,7 +34,11 @@ class Stock extends Component {
 
 	componentDidMount() {
 		const { watchlist } = this.props;
-		this.props.actions.handleUpdateStocks(watchlist);
+		this.props.actions.handleUpdateStocks(watchlist).then(() => {
+			this.setState({
+				isLoading: false
+			})
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {

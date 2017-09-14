@@ -13,7 +13,7 @@ export function handleUpdateStocksSuccess(watchlistResult) {
 
 export function handleUpdateStocks(symbols) {
 	return function (dispatch) {
-		finance.getStock({ stock: symbols }, 'quotes')
+		return finance.getStock({ stock: symbols }, 'quotes')
 			.then(response => response.json())
 			.then((json) => {
 				let quotes = json.query.results.quote;
