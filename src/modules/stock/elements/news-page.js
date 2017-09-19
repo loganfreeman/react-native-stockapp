@@ -8,7 +8,7 @@ import {
 // Elements
 import NewsCell from './news-cell';
 
-import rss from '../../../utils/rss';
+import rss from '../utils/rss';
 
 const styles = StyleSheet.create({
   container: {

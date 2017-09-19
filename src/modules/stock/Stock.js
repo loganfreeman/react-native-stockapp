@@ -22,19 +22,22 @@ import ProgressBar from '../_global/ProgressBar';
 import styles from './styles/Stock';
 import { iconsMap } from '../../utils/AppIcons';
 
-const YAHOO_API_URL = "http://download.finance.yahoo.com/d/quotes.csv";
+// View Elements
+import ChartPage from './elements/chart-page';
+import DetailsPage from './elements/details-page';
+import NewsPage from './elements/news-page';
 
 class Stock extends Component {
 	constructor(props) {
 		super(props);
-
+		const { watchlist, watchlistResult } = props;
 		this.state = {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       isLoading: true,
       isRefreshing: false,
-			watchlistResult: props.watchlistResult,
+			watchlistResult: watchlistResult,
 			selectedProperty: 'ChangeinPercent',
-			selectedStock: {},
+			selectedStock: watchlist.length > 0 ? watchlist[0] : {},
 			key: Math.random(),
     }
 
@@ -92,13 +95,13 @@ class Stock extends Component {
             indicator={this.renderDotIndicator()}
           >
             <View>
-
+							<DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
             </View>
             <View>
-
+							<ChartPage stock={this.state.selectedStock} />
             </View>
             <View>
-
+							<NewsPage key={this.state.key} stock={this.state.selectedStock} />
             </View>
           </IndicatorViewPager>
         </View>
