@@ -210,7 +210,8 @@ function mapStateToProps(state, ownProps) {
 		watchlistResult: state.stock.watchlistResult,
 		watchlist: state.stock.watchlist,
 		selectedStock: state.stock.selectedStock,
-		selectedProperty: state.stock.selectedProperty
+		selectedProperty: state.stock.selectedProperty,
+		addedStock: state.stock.addedStock
 	};
 }
 

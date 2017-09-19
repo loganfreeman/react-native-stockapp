@@ -102,6 +102,11 @@ class AddStock extends Component {
 		}
 	}
 
+  onStockSelected(symbol) {
+    this.props.actions.handleAddStock(symbol);
+    this.props.navigator.dismissModal();
+  }
+
   onTyping(text) {
     this.setState({
       text: text || '',
@@ -172,7 +177,7 @@ class AddStock extends Component {
           <ListView
             enableEmptySections={true}
             dataSource={this.state.dataSource}
-            renderRow={stock => <StockCell stock={stock} />}
+            renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this)}/>}
           />
         </View>
       </View>

@@ -9,6 +9,8 @@ export default {
 
 		selectedProperty: 'ChangeinPercent',
 
+		addedStock: {},
+
 		watchlistResult: {},
 
 	}

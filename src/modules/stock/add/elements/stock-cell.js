@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
 export default class StockCell extends React.Component {
   onPressAdd(symbol) {
-    console.log('_onPressAdd', symbol);
+    this.props.onStockSelected(symbol);
   }
 
   render() {
@@ -88,6 +88,7 @@ StockCell.propTypes = {
     exchDisp: React.PropTypes.string,
     name: React.PropTypes.string,
   }),
+  onStockSelected: React.PropTypes.func
 };
 
 StockCell.defaultProps = {

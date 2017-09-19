@@ -4,10 +4,12 @@ import { TMDB_URL, TMDB_API_KEY } from '../../constants/api';
 import * as finance from './utils/finance';
 
 export function handleAddStock(symbol) {
-	dispatch({
-		type: types.ADD_STOCK,
-		symbol
-	});
+	return function(dispatch) {
+		dispatch({
+			type: types.ADD_STOCK,
+			symbol
+		});
+	}
 }
 
 export function handleUpdateStocksSuccess(watchlistResult) {

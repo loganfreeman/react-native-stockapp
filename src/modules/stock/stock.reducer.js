@@ -16,11 +16,9 @@ export default function (state = initialState.stock, action) {
 		case types.ADD_STOCK:
 			const { symbol } = action;
 			const addedStock = { symbol: symbol.toUpperCase(), share: 100 };
-			watchlist.push(addedStock);
 			return {
 				...state,
-				watchlist,
-				selectedStock: addedStock
+				addedStock
 			};
 
 		default:
