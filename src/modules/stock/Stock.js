@@ -32,14 +32,14 @@ import StockCell from './elements/stock-cell';
 class Stock extends Component {
 	constructor(props) {
 		super(props);
-		const { watchlist, watchlistResult } = props;
+		const { watchlist, watchlistResult, selectedStock, selectedProperty } = props;
 		this.state = {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       isLoading: true,
       isRefreshing: false,
-			watchlistResult: watchlistResult,
-			selectedProperty: 'ChangeinPercent',
-			selectedStock: watchlist.length > 0 ? watchlist[0] : {},
+			watchlistResult,
+			selectedProperty,
+			selectedStock,
 			key: Math.random(),
     }
 
@@ -192,7 +192,9 @@ Stock.navigatorStyle = {
 function mapStateToProps(state, ownProps) {
 	return {
 		watchlistResult: state.stock.watchlistResult,
-		watchlist: state.stock.watchlist
+		watchlist: state.stock.watchlist,
+		selectedStock: state.stock.selectedStock,
+		selectedProperty: state.stock.selectedProperty
 	};
 }
 

@@ -5,7 +5,12 @@ export default {
 			{ symbol: 'GOOG', share: 100 },
 		],
 
-		watchlistResult: {}
+		selectedStock: { symbol: 'AAPL', share: 100 },
+
+		selectedProperty: 'ChangeinPercent',
+
+		watchlistResult: {},
+
 	}
 
 };

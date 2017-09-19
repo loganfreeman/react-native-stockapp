@@ -1,8 +1,14 @@
 import axios from 'axios';
 import * as types from '../../constants/actionTypes';
 import { TMDB_URL, TMDB_API_KEY } from '../../constants/api';
-import * as finance from './api/finance';
+import * as finance from './utils/finance';
 
+export function handleAddStock(symbol) {
+	dispatch({
+		type: types.ADD_STOCK,
+		symbol
+	});
+}
 
 export function handleUpdateStocksSuccess(watchlistResult) {
 	return {
