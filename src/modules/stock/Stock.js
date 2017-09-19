@@ -59,7 +59,13 @@ class Stock extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ isLoading: false });
+		if(nextProps.watchlist.length > 0) {
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(nextProps.watchlist),
+				watchlistResult: nextProps.watchlistResult,
+				isLoading: false
+			});
+		}
 	}
 
 
