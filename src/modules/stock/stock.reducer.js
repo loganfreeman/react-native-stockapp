@@ -18,7 +18,8 @@ export default function (state = initialState.stock, action) {
 			const addedStock = { symbol: symbol.toUpperCase(), share: 100 };
 			return {
 				...state,
-				addedStock
+				watchlist: [...watchlist, addedStock],
+				selectedStock: addedStock
 			};
 
 		default:
