@@ -93,6 +93,15 @@ class Stock extends Component {
 		})
 	}
 
+	addStock() {
+		this.props.navigator.showModal({
+			screen: 'movieapp.AddStock',
+			title: 'Add Stock',
+			animated: true, // does the resetTo have transition animation or does it happen immediately (optional)
+  		animationType: 'fade'
+		});
+	}
+
 	render() {
 		const { quote } = this.state;
 
@@ -114,7 +123,7 @@ class Stock extends Component {
 						renderRow={stock => <StockCell stock={stock} handleSelectProperty={this.handleSelectProperty.bind(this)} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
 					/>
 				</View>
-				
+
 				<View style={styles.detailedBlock}>
 					<IndicatorViewPager
 						style={{flex: 1}}
@@ -159,14 +168,8 @@ class Stock extends Component {
         </View>
 
 				<ActionButton buttonColor="rgba(231,76,60,1)">
-	        <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
-	          <Icon name="create" style={styles.actionButtonIcon} />
-	        </ActionButton.Item>
-	        <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
-	          <Icon name="notifications-off" style={styles.actionButtonIcon} />
-	        </ActionButton.Item>
-	        <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
-	          <Icon name="done-all" style={styles.actionButtonIcon} />
+	        <ActionButton.Item buttonColor='#9b59b6' title="Add stock" onPress={() => this.addStock()}>
+	          <Icon name="add" style={styles.actionButtonIcon} />
 	        </ActionButton.Item>
 	      </ActionButton>
       </ScrollView>

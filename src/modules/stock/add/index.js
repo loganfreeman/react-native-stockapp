@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import {
   ListView,
   Platform,
@@ -8,6 +8,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as moviesActions from '../stock.actions';
+
 
 // 3rd party libraries
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Settings extends React.Component {
+class AddStock extends Component {
   constructor(props) {
     super(props);
 
@@ -81,7 +86,21 @@ export default class Settings extends React.Component {
       text: null,
       helpText: 'Type a company name or stock symbol.',
     };
+
+    this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
   }
+
+  onCancelButtonPress() {
+    this.props.navigator.dismissModal();
+  }
+
+  _onNavigatorEvent(event) {
+		if (event.type === 'NavBarButtonPress') {
+			if (event.id === 'close') {
+				this.props.navigator.dismissModal();
+			}
+		}
+	}
 
   onTyping(text) {
     this.setState({
@@ -141,7 +160,7 @@ export default class Settings extends React.Component {
             <TouchableHighlight
               style={styles.cancelButton}
               underlayColor="black"
-              onPress={Actions.pop}
+              onPress={this.onCancelButtonPress.bind(this)}
             >
               <Text style={styles.cancelButtonText}>
                 Cancel
@@ -160,3 +179,42 @@ export default class Settings extends React.Component {
     );
   }
 }
+
+AddStock.propTypes = {
+	actions: PropTypes.object.isRequired,
+	navigator: PropTypes.object,
+};
+
+let navigatorStyle = {};
+
+if (Platform.OS === 'ios') {
+	navigatorStyle = {
+		navBarTranslucent: true,
+		drawUnderNavBar: true
+	};
+} else {
+	navigatorStyle = {
+		navBarBackgroundColor: '#0a0a0a'
+	};
+}
+
+AddStock.navigatorStyle = {
+	...navigatorStyle,
+	statusBarColor: 'black',
+	statusBarTextColorScheme: 'light',
+	navBarTextColor: 'white',
+	navBarButtonColor: 'white'
+};
+
+function mapStateToProps(state, ownProps) {
+	return {
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: bindActionCreators(moviesActions, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddStock);
