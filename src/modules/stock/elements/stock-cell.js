@@ -6,10 +6,6 @@ import {
   StyleSheet,
 } from 'react-native';
 
-// Flux
-import StockActions from '../../../actions/stock-action';
-import StockStore from '../../../stores/stock-store';
-
 const ROTATE_PROPERTIES = {
   Change: 'MarketCapitalization',
   ChangeinPercent: 'Change',
@@ -76,38 +72,32 @@ const styles = StyleSheet.create({
 export default class StockCell extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = StockStore.getState();
   }
 
   componentDidMount() {
-    StockStore.listen(state => this.onStockStoreChange(state));
   }
 
   componentWillUnmount() {
-    StockStore.unlisten(state => this.onStockStoreChange(state));
   }
 
-  onStockStoreChange(state) {
-    this.setState({
-      selectedProperty: state.selectedProperty,
-      selectedStock: state.selectedStock,
-    });
-  }
 
   changeSelectedStock(stock) {
-    console.log('Selected Stock:', stock);
-    StockActions.selectStock(stock);
+
+  }
+
+  onStockSelected() {
+    this.props.onStockSelected();
   }
 
   render() {
-    console.log(this.state.selectedStock.symbol, this.props.stock.symbol, this.state.selectedStock.symbol === this.props.stock.symbol);
+    const { selectedStock, selectedProperty } = this.props;
+    console.log(selectedStock.symbol, this.props.stock.symbol, selectedStock.symbol === this.props.stock.symbol);
     return (
       <TouchableHighlight
-        style={[this.state.selectedStock.symbol === this.props.stock.symbol ? styles.selected : null]}
-        onPress={() => this.changeSelectedStock(this.props.stock)} underlayColor="#202020"
+        style={[selectedStock.symbol === this.props.stock.symbol ? styles.selected : null]}
+        onPress={() => this.onStockSelected()} underlayColor="#202020"
       >
-        <View style={[styles.container, this.state.selectedStock.symbol === this.props.stock.symbol ? styles.selected : null]}>
+        <View style={[styles.container, selectedStock.symbol === this.props.stock.symbol ? styles.selected : null]}>
           <View style={styles.symbol}>
             <Text style={styles.symbolText}>
               {this.props.stock.symbol}
@@ -139,12 +129,12 @@ export default class StockCell extends React.Component {
                 default: return '#53D769';
               }
             })()}
-            onPress={() => StockActions.selectProperty(ROTATE_PROPERTIES[this.state.selectedProperty])}
+            onPress={() => this.selectProperty(ROTATE_PROPERTIES[selectedProperty])}
           >
             <View>
               <Text style={styles.changeText}>
                 {(() => {
-                  switch (this.state.selectedProperty) {
+                  switch (selectedProperty) {
                     case 'Change': return (
                       this.props.watchlistResult
                       && this.props.watchlistResult[this.props.stock.symbol]
@@ -177,9 +167,14 @@ StockCell.propTypes = {
   stock: React.PropTypes.shape({
     symbol: React.PropTypes.string,
   }),
+  selectedStock: React.PropTypes.object,
+  selectedProperty: React.PropTypes.string,
+  onStockSelected: React.PropTypes.func
 };
 
 StockCell.defaultProps = {
   watchlistResult: [],
   stock: {},
+  selectedStock: {},
+  selectedProperty: {}
 };

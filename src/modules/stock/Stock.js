@@ -26,6 +26,8 @@ import { iconsMap } from '../../utils/AppIcons';
 import ChartPage from './elements/chart-page';
 import DetailsPage from './elements/details-page';
 import NewsPage from './elements/news-page';
+import StockCell from './elements/stock-cell';
+
 
 class Stock extends Component {
 	constructor(props) {
@@ -41,7 +43,6 @@ class Stock extends Component {
 			key: Math.random(),
     }
 
-		this._onRefresh = this._onRefresh.bind(this);
 		this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
 	}
 
@@ -61,7 +62,7 @@ class Stock extends Component {
 	}
 
 
-	_onRefresh() {
+	onRefresh() {
 		this.setState({ isRefreshing: true });
 	}
 
@@ -79,6 +80,12 @@ class Stock extends Component {
     );
   }
 
+	onStockSelected(selectedStock) {
+		this.setState({
+			selectedStock
+		})
+	}
+
 	render() {
 		const { quote } = this.state;
 
@@ -87,7 +94,17 @@ class Stock extends Component {
 			<View style={styles.container}>
         {Platform.OS === 'ios' && <View style={styles.statusBar} />}
         <View style={styles.stocksBlock}>
-
+					<ListView
+						key={this.state.key}
+						refreshControl={
+							<RefreshControl
+								refreshing={this.state.isRefreshing}
+								onRefresh={() => this.onRefresh()}
+							/>
+						}
+						dataSource={this.state.dataSource}
+						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
+					/>
         </View>
         <View style={styles.detailedBlock}>
           <IndicatorViewPager
