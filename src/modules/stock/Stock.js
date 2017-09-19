@@ -106,8 +106,9 @@ class Stock extends Component {
 						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
 					/>
         </View>
+				<View style={styles.detailedBlock}>
 				<IndicatorViewPager
-					style={styles.detailedBlock}
+					style={{flex: 1}}
 					indicator={this.renderDotIndicator()}
 				>
 					<View>
@@ -120,6 +121,8 @@ class Stock extends Component {
 						<NewsPage key={this.state.key} stock={this.state.selectedStock} />
 					</View>
 				</IndicatorViewPager>
+				</View>
+
         <View style={styles.footerBlock}>
           <TouchableHighlight
             style={styles.yahoo}
