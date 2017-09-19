@@ -2,12 +2,17 @@ import React, { PropTypes, Component } from 'react';
 import {
 	RefreshControl,
 	ScrollView,
-	Text,
 	TouchableOpacity,
-	View,
-	Platform
+	Linking,
+  ListView,
+  Platform,
+  Text,
+  TouchableHighlight,
+  StyleSheet,
+  View,
+  RefreshControl,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -24,9 +29,13 @@ class Stock extends Component {
 		super(props);
 
 		this.state = {
-			isLoading: true,
-			isRefreshing: false
-		};
+      dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
+      isLoading: true,
+      refreshing: false,
+      key: Math.random(),
+			watchlist: props.watchlist,
+			watchlistResult: props.watchlistResult
+    }
 
 		this._onRefresh = this._onRefresh.bind(this);
 		this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
@@ -36,8 +45,12 @@ class Stock extends Component {
 		const symbols = this.props.watchlist.map(item => item.symbol.toUpperCase());
 		this.props.actions.handleUpdateStocks(symbols).then(() => {
 			this.setState({
-				isLoading: false
-			})
+				dataSource: this.state.dataSource.cloneWithRows(this.props.watchlist),
+				watchlistResult: this.props.watchlistResult,
+				selectedProperty: 'ChangeinPercent',
+				selectedStock: {},
+				key: Math.random(),
+			});
 		})
 	}
 
