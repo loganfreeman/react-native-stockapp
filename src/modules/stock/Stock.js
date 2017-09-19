@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 
 import * as moviesActions from './stock.actions';
 import ProgressBar from '../_global/ProgressBar';
@@ -69,28 +70,64 @@ class Stock extends Component {
 		}
 	}
 
+	renderDotIndicator() {
+    return (
+      <PagerDotIndicator pageCount={3} />
+    );
+  }
+
 	render() {
 		const { quote } = this.state;
 
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-			<ScrollView
-				style={styles.container}
-				refreshControl={
-					<RefreshControl
-						refreshing={this.state.isRefreshing}
-						onRefresh={this._onRefresh}
-						colors={['#EA0000']}
-						tintColor="white"
-						title="loading..."
-						titleColor="white"
-						progressBackgroundColor="white"
-					/>
-				}>
-				<Text>
-					{quote}
-				</Text>
-			</ScrollView>
+			<View style={styles.container}>
+        {Platform.OS === 'ios' && <View style={styles.statusBar} />}
+        <View style={styles.stocksBlock}>
+
+        </View>
+        <View style={styles.detailedBlock}>
+          <IndicatorViewPager
+            style={{ flex: 1 }}
+            indicator={this.renderDotIndicator()}
+          >
+            <View>
+
+            </View>
+            <View>
+
+            </View>
+            <View>
+
+            </View>
+          </IndicatorViewPager>
+        </View>
+        <View style={styles.footerBlock}>
+          <TouchableHighlight
+            style={styles.yahoo}
+            onPress={() => Linking.openURL(
+              `http://finance.yahoo.com/q?s=${this.state.selectedStock.symbol}`
+            )
+          }
+            underlayColor="#202020"
+          >
+            <Text style={styles.yahooText}>
+              Yahoo!
+            </Text>
+          </TouchableHighlight>
+          <View style={styles.footerMiddle}>
+            <Text style={styles.marketTimeText}>
+              Market closed
+            </Text>
+          </View>
+          <TouchableHighlight
+            style={styles.settings}
+            underlayColor="#202020"
+          >
+            <Icon name="menu" color="white" size={22} />
+          </TouchableHighlight>
+        </View>
+      </View>
 		);
 	}
 }
