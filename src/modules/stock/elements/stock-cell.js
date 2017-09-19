@@ -89,6 +89,10 @@ export default class StockCell extends React.Component {
     this.props.onStockSelected();
   }
 
+  selectProperty() {
+    
+  }
+
   render() {
     const { selectedStock, selectedProperty } = this.props;
     console.log(selectedStock.symbol, this.props.stock.symbol, selectedStock.symbol === this.props.stock.symbol);
