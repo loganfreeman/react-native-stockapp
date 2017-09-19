@@ -89,8 +89,8 @@ export default class StockCell extends React.Component {
     this.props.onStockSelected();
   }
 
-  selectProperty() {
-    
+  selectProperty(selectProperty) {
+    this.props.handleSelectProperty(selectProperty)
   }
 
   render() {
@@ -173,7 +173,8 @@ StockCell.propTypes = {
   }),
   selectedStock: React.PropTypes.object,
   selectedProperty: React.PropTypes.string,
-  onStockSelected: React.PropTypes.func
+  onStockSelected: React.PropTypes.func,
+  handleSelectProperty: React.PropTypes.func
 };
 
 StockCell.defaultProps = {

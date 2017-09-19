@@ -86,6 +86,12 @@ class Stock extends Component {
 		})
 	}
 
+	handleSelectProperty(selectedProperty) {
+		this.setState({
+			selectedProperty
+		})
+	}
+
 	render() {
 		const { quote } = this.state;
 
@@ -146,10 +152,10 @@ class Stock extends Component {
 							/>
 						}
 						dataSource={this.state.dataSource}
-						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
+						renderRow={stock => <StockCell stock={stock} handleSelectProperty={this.handleSelectProperty.bind(this)} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
 					/>
 				</View>
-				
+
       </View>
 		);
 	}
