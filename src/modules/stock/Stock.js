@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import {
-	RefreshControl,
 	ScrollView,
 	TouchableOpacity,
 	Linking,
@@ -31,7 +30,7 @@ class Stock extends Component {
 		this.state = {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       isLoading: true,
-      refreshing: false,
+      isRefreshing: false,
 			watchlistResult: props.watchlistResult,
 			selectedProperty: 'ChangeinPercent',
 			selectedStock: {},
