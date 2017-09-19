@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import StockCell from './elements/stock-cell';
 
 // Utils
-import finance from '../utils/finance';
+import * as finance from '../utils/finance';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   searchBarInput: {
     flex: 4,
     flexDirection: 'column',
-    height: 30,
+    height: 40,
     backgroundColor: '#424242',
     borderRadius: 4,
     color: 'white',
@@ -104,12 +104,11 @@ class AddStock extends Component {
 
   onTyping(text) {
     this.setState({
-      text: text.text || '',
+      text: text || '',
       helpText: 'Validating symbol...',
     });
 
-    const that = this;
-    finance.symbolSuggest(text.text)
+    finance.symbolSuggest(text)
       .then(response => response.text())
       .then((result) => {
         result = result.replace(/(YAHOO\.util\.ScriptNodeDataSource\.callbacks\()(.*)(\);)/g, '$2');
@@ -117,8 +116,8 @@ class AddStock extends Component {
         return JSON.parse(result);
       })
       .then((json) => {
-        that.setState({
-          dataSource: that.state.dataSource.cloneWithRows(json.ResultSet.Result),
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(json.ResultSet.Result),
           loaded: true,
           helpText: 'Type a company name or stock symbol.',
         });
@@ -144,7 +143,7 @@ class AddStock extends Component {
               autoFocus={true}
               placeholder="Search"
               placeholderTextColor="gray"
-              onChangeText={text => this.onTyping({ text })}
+              onChangeText={text => this.onTyping(text)}
               value={this.state.text}
             />
             {(this.state.text && this.state.text.length > 0) ?
@@ -171,6 +170,7 @@ class AddStock extends Component {
 
         <View style={styles.suggestion}>
           <ListView
+            enableEmptySections={true}
             dataSource={this.state.dataSource}
             renderRow={stock => <StockCell stock={stock} />}
           />
