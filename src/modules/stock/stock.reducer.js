@@ -2,7 +2,7 @@ import * as types from '../../constants/actionTypes';
 import initialState from '../../reducers/initialState';
 
 export default function (state = initialState.stock, action) {
-	const { watchlist } = state;
+	const { watchlist, watchlistResult } = state;
 
 	switch (action.type) {
 
@@ -14,12 +14,14 @@ export default function (state = initialState.stock, action) {
 			};
 
 		case types.ADD_STOCK:
-			const { symbol } = action;
+			const { symbol, quote } = action;
 			const addedStock = { symbol: symbol.toUpperCase(), share: 100 };
+			watchlistResult[symbol] = quote;
 			return {
 				...state,
 				watchlist: [...watchlist, addedStock],
-				selectedStock: addedStock
+				selectedStock: addedStock,
+				watchlistResult
 			};
 
 		default:

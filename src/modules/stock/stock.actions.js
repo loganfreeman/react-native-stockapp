@@ -3,12 +3,25 @@ import * as types from '../../constants/actionTypes';
 import { TMDB_URL, TMDB_API_KEY } from '../../constants/api';
 import * as finance from './utils/finance';
 
+export function handleAddStockSuccess(quote, symbol) {
+	return {
+		type: types.ADD_STOCK,
+		quote,
+		symbol
+	};
+}
+
 export function handleAddStock(symbol) {
-	return function(dispatch) {
-		dispatch({
-			type: types.ADD_STOCK,
-			symbol
-		});
+	return function (dispatch) {
+		return finance.getStock({ stock: [symbol] }, 'quotes')
+			.then(response => response.json())
+			.then((json) => {
+				let quotes = json.query.results.quote;
+				quotes = Array.isArray(quotes) ? quotes : [quotes];
+				dispatch(handleAddStockSuccess(quotes[0], symbol));
+			}).catch((error) => {
+				console.log('Request failed', error);
+			});
 	}
 }
 
