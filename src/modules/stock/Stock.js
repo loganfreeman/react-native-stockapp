@@ -32,9 +32,10 @@ class Stock extends Component {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       isLoading: true,
       refreshing: false,
-      key: Math.random(),
-			watchlist: props.watchlist,
-			watchlistResult: props.watchlistResult
+			watchlistResult: props.watchlistResult,
+			selectedProperty: 'ChangeinPercent',
+			selectedStock: {},
+			key: Math.random(),
     }
 
 		this._onRefresh = this._onRefresh.bind(this);
@@ -47,9 +48,7 @@ class Stock extends Component {
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(this.props.watchlist),
 				watchlistResult: this.props.watchlistResult,
-				selectedProperty: 'ChangeinPercent',
-				selectedStock: {},
-				key: Math.random(),
+				isLoading: false
 			});
 		})
 	}
