@@ -16,6 +16,7 @@ import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
+import ActionButton from 'react-native-action-button';
 
 import * as moviesActions from './stock.actions';
 import ProgressBar from '../_global/ProgressBar';
@@ -156,6 +157,17 @@ class Stock extends Component {
 					/>
 				</View>
 
+				<ActionButton buttonColor="rgba(231,76,60,1)">
+	        <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+	          <Icon name="create" style={styles.actionButtonIcon} />
+	        </ActionButton.Item>
+	        <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+	          <Icon name="notifications-off" style={styles.actionButtonIcon} />
+	        </ActionButton.Item>
+	        <ActionButton.Item buttonColor='#1abc9c' title="All Tasks" onPress={() => {}}>
+	          <Icon name="done-all" style={styles.actionButtonIcon} />
+	        </ActionButton.Item>
+	      </ActionButton>
       </View>
 		);
 	}

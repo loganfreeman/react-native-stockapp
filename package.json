@@ -23,6 +23,7 @@
     "numeral": "^1.5.3",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
+    "react-native-action-button": "^2.8.0",
     "react-native-calendar": "^0.12.3",
     "react-native-config": "^0.3.1",
     "react-native-elements": "^0.16.0",
