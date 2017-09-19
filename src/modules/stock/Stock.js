@@ -93,19 +93,6 @@ class Stock extends Component {
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
 			<View style={styles.container}>
         {Platform.OS === 'ios' && <View style={styles.statusBar} />}
-        <View style={styles.stocksBlock}>
-					<ListView
-						key={this.state.key}
-						refreshControl={
-							<RefreshControl
-								refreshing={this.state.isRefreshing}
-								onRefresh={() => this.onRefresh()}
-							/>
-						}
-						dataSource={this.state.dataSource}
-						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
-					/>
-        </View>
 				<View style={styles.detailedBlock}>
 				<IndicatorViewPager
 					style={{flex: 1}}
@@ -148,6 +135,21 @@ class Stock extends Component {
             <Icon name="menu" color="white" size={22} />
           </TouchableHighlight>
         </View>
+
+				<View style={styles.stocksBlock}>
+					<ListView
+						key={this.state.key}
+						refreshControl={
+							<RefreshControl
+								refreshing={this.state.isRefreshing}
+								onRefresh={() => this.onRefresh()}
+							/>
+						}
+						dataSource={this.state.dataSource}
+						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
+					/>
+				</View>
+				
       </View>
 		);
 	}
