@@ -106,22 +106,20 @@ class Stock extends Component {
 						renderRow={stock => <StockCell stock={stock} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
 					/>
         </View>
-        <View style={styles.detailedBlock}>
-          <IndicatorViewPager
-            style={{ flex: 1 }}
-            indicator={this.renderDotIndicator()}
-          >
-            <View>
-							<DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
-            </View>
-            <View>
-							<ChartPage stock={this.state.selectedStock} />
-            </View>
-            <View>
-							<NewsPage key={this.state.key} stock={this.state.selectedStock} />
-            </View>
-          </IndicatorViewPager>
-        </View>
+				<IndicatorViewPager
+					style={styles.detailedBlock}
+					indicator={this.renderDotIndicator()}
+				>
+					<View>
+						<DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
+					</View>
+					<View>
+						<ChartPage stock={this.state.selectedStock} />
+					</View>
+					<View>
+						<NewsPage key={this.state.key} stock={this.state.selectedStock} />
+					</View>
+				</IndicatorViewPager>
         <View style={styles.footerBlock}>
           <TouchableHighlight
             style={styles.yahoo}
