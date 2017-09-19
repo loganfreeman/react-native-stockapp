@@ -53,7 +53,8 @@ class Stock extends Component {
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(this.props.watchlist),
 				watchlistResult: this.props.watchlistResult,
-				isLoading: false
+				isLoading: false,
+				isRefreshing: false
 			});
 		})
 	}
@@ -63,7 +64,8 @@ class Stock extends Component {
 			this.setState({
 				dataSource: this.state.dataSource.cloneWithRows(nextProps.watchlist),
 				watchlistResult: nextProps.watchlistResult,
-				isLoading: false
+				isLoading: false,
+				isRefreshing: false
 			});
 		}
 	}
