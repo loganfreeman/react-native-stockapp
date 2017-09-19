@@ -98,23 +98,38 @@ class Stock extends Component {
 
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-			<View style={styles.container}>
+			<ScrollView
+				style={styles.container}>
         {Platform.OS === 'ios' && <View style={styles.statusBar} />}
+				<View style={styles.stocksBlock}>
+					<ListView
+						key={this.state.key}
+						refreshControl={
+							<RefreshControl
+								refreshing={this.state.isRefreshing}
+								onRefresh={() => this.onRefresh()}
+							/>
+						}
+						dataSource={this.state.dataSource}
+						renderRow={stock => <StockCell stock={stock} handleSelectProperty={this.handleSelectProperty.bind(this)} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
+					/>
+				</View>
+				
 				<View style={styles.detailedBlock}>
-				<IndicatorViewPager
-					style={{flex: 1}}
-					indicator={this.renderDotIndicator()}
-				>
-					<View>
-						<DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
-					</View>
-					<View>
-						<ChartPage stock={this.state.selectedStock} />
-					</View>
-					<View>
-						<NewsPage key={this.state.key} stock={this.state.selectedStock} />
-					</View>
-				</IndicatorViewPager>
+					<IndicatorViewPager
+						style={{flex: 1}}
+						indicator={this.renderDotIndicator()}
+					>
+						<View>
+							<DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
+						</View>
+						<View>
+							<ChartPage stock={this.state.selectedStock} />
+						</View>
+						<View>
+							<NewsPage key={this.state.key} stock={this.state.selectedStock} />
+						</View>
+					</IndicatorViewPager>
 				</View>
 
         <View style={styles.footerBlock}>
@@ -143,20 +158,6 @@ class Stock extends Component {
           </TouchableHighlight>
         </View>
 
-				<View style={styles.stocksBlock}>
-					<ListView
-						key={this.state.key}
-						refreshControl={
-							<RefreshControl
-								refreshing={this.state.isRefreshing}
-								onRefresh={() => this.onRefresh()}
-							/>
-						}
-						dataSource={this.state.dataSource}
-						renderRow={stock => <StockCell stock={stock} handleSelectProperty={this.handleSelectProperty.bind(this)} onStockSelected={this.onStockSelected.bind(this, stock)} watchlistResult={this.state.watchlistResult} selectedStock={this.state.selectedStock} selectedProperty={this.state.selectedProperty}/>}
-					/>
-				</View>
-
 				<ActionButton buttonColor="rgba(231,76,60,1)">
 	        <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
 	          <Icon name="create" style={styles.actionButtonIcon} />
@@ -168,7 +169,7 @@ class Stock extends Component {
 	          <Icon name="done-all" style={styles.actionButtonIcon} />
 	        </ActionButton.Item>
 	      </ActionButton>
-      </View>
+      </ScrollView>
 		);
 	}
 }

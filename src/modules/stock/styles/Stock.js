@@ -2,10 +2,13 @@ import { Platform, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: 'black',
-  },
+		backgroundColor: 'black',
+		...Platform.select({
+			ios: {
+				paddingTop: 64
+			}
+		})
+	},
   statusBar: {
     height: 20,
   },
@@ -14,12 +17,12 @@ const styles = StyleSheet.create({
     flex: 9,
   },
   detailedBlock: {
-    flex: 5,
+    height: 248,
     backgroundColor: '#202020',
     justifyContent: 'space-between',
   },
   footerBlock: {
-    flex: 1,
+    height: 25,
     flexDirection: 'row',
     backgroundColor: '#202020',
     alignItems: 'center',
