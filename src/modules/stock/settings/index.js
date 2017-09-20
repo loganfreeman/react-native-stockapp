@@ -6,6 +6,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  Alert
 } from 'react-native';
 
 // 3rd party libraries
@@ -151,7 +152,11 @@ class Settings extends React.Component {
 
   onStockDelete(symbol) {
     console.log(symbol);
-    this.props.actions.handleDeleteStock(symbol);
+    if(this.props.watchlist.length == 1) {
+      Alert.alert('Warning', 'You cannot delete the only stock!');
+    }else {
+      this.props.actions.handleDeleteStock(symbol);
+    }
   }
 
   render() {

@@ -15,7 +15,7 @@ export default function (state = initialState.stock, action) {
 			};
 
 		case types.DELETE_STOCK:
-			const newWatchlist = watchlist.filter(stock => stock.symbol === symbol);
+			const newWatchlist = watchlist.filter(stock => stock.symbol !== symbol);
 			const selectedStock = newWatchlist.length > 0 ? newWatchlist[0]: {};
 			return {
 				...state,
