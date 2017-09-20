@@ -11,6 +11,18 @@ export function handleAddStockSuccess(quote, symbol) {
 	};
 }
 
+export function handleDeleteStock(symbol) {
+	return function (dispatch) {
+
+	}
+}
+
+export function handlePropertySelected(property) {
+	return function (dispatch) {
+		
+	}
+}
+
 export function handleAddStock(symbol) {
 	return function (dispatch) {
 		return finance.getStock({ stock: [symbol] }, 'quotes')

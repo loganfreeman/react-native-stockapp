@@ -6,6 +6,17 @@ export default function (state = initialState.stock, action) {
 
 	switch (action.type) {
 
+		case types.HANDLE_PROPERTY_SELECTED:
+			return {
+
+			};
+
+		case types.DELETE_STOCK:
+			return {
+
+			};
+
+
 		case types.RETRIEVE_STOCK_QUOTES_SUCCESS:
 			return {
 				...state,
