@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
 
 export default class StockCell extends React.Component {
   onPressDelete(symbol) {
+    this.props.onStockDelete(symbol);
   }
 
   render() {
@@ -120,6 +121,7 @@ StockCell.propTypes = {
   stock: React.PropTypes.shape({
     symbol: React.PropTypes.string,
   }),
+  onStockDelete: React.PropTypes.func
 };
 
 StockCell.defaultProps = {

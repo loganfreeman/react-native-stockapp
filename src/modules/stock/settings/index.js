@@ -134,7 +134,11 @@ class Settings extends React.Component {
 
 
   selectProperty(property) {
+    console.log(property);
+  }
 
+  onStockDelete(symbol) {
+    console.log(symbol);
   }
 
   render() {
@@ -144,7 +148,7 @@ class Settings extends React.Component {
           <ListView
             key={this.state.key}
             dataSource={this.state.dataSource}
-            renderRow={stock => <StockCell stock={stock} watchlistResult={this.state.watchlistResult} />}
+            renderRow={stock => <StockCell stock={stock} watchlistResult={this.state.watchlistResult} onStockDelete={this.onStockDelete.bind(this)}/>}
           />
         </View>
         <View style={styles.bottomBlock}>
