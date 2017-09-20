@@ -104,23 +104,34 @@ class Settings extends React.Component {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       key: Math.random(),
     };
+
+    this.props.navigator.setOnNavigatorEvent(this._onNavigatorEvent.bind(this));
   }
 
-  componentDidMount() {
+  onCancelButtonPress() {
+    this.props.navigator.dismissModal();
+  }
 
+  _onNavigatorEvent(event) {
+		if (event.type === 'NavBarButtonPress') {
+			if (event.id === 'close') {
+				this.props.navigator.dismissModal();
+			}
+		}
+	}
+
+  componentDidMount() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.props.watchlist),
+      watchlistResult: this.props.watchlistResult,
+      selectedProperty: this.props.selectedProperty,
+      key: Math.random(),
+    });
   }
 
   componentWillUnmount() {
   }
 
-  onStockStoreChange(state) {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(state.watchlist),
-      watchlistResult: state.watchlistResult,
-      selectedProperty: state.selectedProperty,
-      key: Math.random(),
-    });
-  }
 
   selectProperty(property) {
 

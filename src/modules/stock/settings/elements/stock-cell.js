@@ -82,8 +82,6 @@ const styles = StyleSheet.create({
 
 export default class StockCell extends React.Component {
   onPressDelete(symbol) {
-    console.log('onPressDelete', symbol);
-    StockActions.deleteStock(symbol);
   }
 
   render() {
