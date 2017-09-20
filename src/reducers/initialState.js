@@ -8,9 +8,7 @@ export default {
 		selectedStock: { symbol: 'AAPL', share: 100 },
 
 		selectedProperty: 'ChangeinPercent',
-
-		addedStock: {},
-
+		
 		watchlistResult: {},
 
 	}

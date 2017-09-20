@@ -16,12 +16,14 @@ export default function (state = initialState.stock, action) {
 		case types.ADD_STOCK:
 			const { symbol, quote } = action;
 			const addedStock = { symbol: symbol.toUpperCase(), share: 100 };
-			watchlistResult[symbol] = quote;
 			return {
 				...state,
 				watchlist: [...watchlist, addedStock],
 				selectedStock: addedStock,
-				watchlistResult
+				watchlistResult: {
+					...watchlistResult,
+					[symbol]: quote
+				}
 			};
 
 		default:
