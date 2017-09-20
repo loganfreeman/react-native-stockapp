@@ -91,13 +91,15 @@ class Stock extends Component {
 
 	onStockSelected(selectedStock) {
 		this.setState({
-			selectedStock
+			selectedStock,
+			key: Math.random()
 		})
 	}
 
 	handleSelectProperty(selectedProperty) {
 		this.setState({
-			selectedProperty
+			selectedProperty,
+			key: Math.random()
 		})
 	}
 
