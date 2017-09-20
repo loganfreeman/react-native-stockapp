@@ -13,13 +13,19 @@ export function handleAddStockSuccess(quote, symbol) {
 
 export function handleDeleteStock(symbol) {
 	return function (dispatch) {
-
+		dispatch({
+			type: types.DELETE_STOCK,
+			symbol
+		})
 	}
 }
 
 export function handlePropertySelected(property) {
 	return function (dispatch) {
-		
+		dispatch({
+			type: types.HANDLE_PROPERTY_SELECTED,
+			property
+		})
 	}
 }
 
