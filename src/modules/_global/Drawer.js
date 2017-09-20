@@ -81,7 +81,7 @@ class Drawer extends Component {
 							<View style={styles.drawerListItem}>
 								{iconSettings}
 								<Text style={styles.drawerListItemText}>
-									Stock Settings
+									Settings
 								</Text>
 							</View>
 						</TouchableOpacity>
