@@ -135,10 +135,12 @@ class Settings extends React.Component {
 
   selectProperty(property) {
     console.log(property);
+    this.props.actions.handlePropertySelected(property);
   }
 
   onStockDelete(symbol) {
     console.log(symbol);
+    this.props.actions.handleDeleteStock(symbol);
   }
 
   render() {
