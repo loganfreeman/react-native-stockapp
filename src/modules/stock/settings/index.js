@@ -129,6 +129,17 @@ class Settings extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { selectedProperty, watchlist, watchlistResult } = nextProps;
+    console.log('Settings receive property: ', selectedProperty);
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(watchlist),
+      watchlistResult,
+      selectedProperty,
+      key: Math.random(),
+    });
+  }
+
   componentWillUnmount() {
   }
 
