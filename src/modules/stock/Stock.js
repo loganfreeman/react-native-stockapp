@@ -110,6 +110,15 @@ class Stock extends Component {
 		});
 	}
 
+	settings() {
+		this.props.navigator.showModal({
+			screen: 'movieapp.Settings',
+			title: 'Settings',
+			animated: true, // does the resetTo have transition animation or does it happen immediately (optional)
+  		animationType: 'fade'
+		});
+	}
+
 	render() {
 		const { quote } = this.state;
 
@@ -178,6 +187,9 @@ class Stock extends Component {
 				<ActionButton buttonColor="rgba(231,76,60,1)">
 	        <ActionButton.Item buttonColor='#9b59b6' title="Add stock" onPress={() => this.addStock()}>
 	          <Icon name="add" style={styles.actionButtonIcon} />
+	        </ActionButton.Item>
+					<ActionButton.Item buttonColor='#9b59b6' title="Settings" onPress={() => this.settings()}>
+	          <Icon name="settings" style={styles.actionButtonIcon} />
 	        </ActionButton.Item>
 	      </ActionButton>
       </ScrollView>

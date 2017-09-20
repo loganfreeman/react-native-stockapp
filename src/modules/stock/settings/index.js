@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   ListView,
   Platform,
@@ -176,7 +176,7 @@ Settings.propTypes = {
   navigator: PropTypes.object,
   watchlistResult: PropTypes.object.isRequired,
   watchlist: PropTypes.array.isRequired,
-  selectedProperty: state.stock.selectedProperty
+  selectedProperty: PropTypes.string.isRequired
 };
 
 Settings.defaultProps = {

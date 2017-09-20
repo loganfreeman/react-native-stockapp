@@ -8,9 +8,6 @@ import {
 // 3rd party libraries
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// Flux
-import StockActions from '../../../actions/stock-action';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
