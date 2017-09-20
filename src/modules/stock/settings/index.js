@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 
 // 3rd party libraries
-import { Actions } from 'react-native-router-flux';
 import NavigationBar from 'react-native-navbar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-// Flux
-import StockActions from '../../actions/stock-action';
-import StockStore from '../../stores/stock-store';
+// actions
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as moviesActions from '../stock.actions';
 
 // View Elements
 import StockCell from './elements/stock-cell';
@@ -96,24 +96,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Settings extends React.Component {
+class Settings extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({
+    this.state = {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       key: Math.random(),
-    }, StockStore.getState());
+    };
   }
 
   componentDidMount() {
-    StockStore.listen(state => this.onStockStoreChange(state));
 
-    StockActions.updateStocks();
   }
 
   componentWillUnmount() {
-    StockStore.unlisten(state => this.onStockStoreChange(state));
   }
 
   onStockStoreChange(state) {
@@ -125,49 +122,13 @@ export default class Settings extends React.Component {
     });
   }
 
-  onActionSelected(position) {
-    if (position === 0) {  // index of 'Add'
-      Actions.add();
-    } else if (position === 1) {  // index of 'Done'
-      Actions.pop();
-    }
-  }
+  selectProperty(property) {
 
-  renderToolbar() {
-    if (Platform.OS === 'ios') {
-      return (
-        <NavigationBar
-          statusBar={{ tintColor: '#202020', style: 'light-content' }}
-          style={styles.navigatorBarIOS}
-          title={{ title: this.props.title, tintColor: 'white' }}
-          leftButton={<Icon style={styles.navigatorLeftButton} name="add" size={26} color="#3CABDA" onPress={Actions.add} />}
-          rightButton={{
-            title: 'Done',
-            tintColor: '#3CABDA',
-            handler: Actions.pop,
-          }}
-        />
-      );
-    } else if (Platform.OS === 'android') {
-      return (
-        <Icon.ToolbarAndroid
-          style={styles.toolbar}
-          title={this.props.title}
-          titleColor="white"
-          actions={[
-            { title: 'Add', iconName: 'add', iconSize: 26, show: 'always' },
-            { title: 'Done', iconName: 'check', iconSize: 26, show: 'always' },
-          ]}
-          onActionSelected={position => this.onActionSelected(position)}
-        />
-      );
-    }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.renderToolbar()}
         <View style={styles.topBlock}>
           <ListView
             key={this.state.key}
@@ -179,7 +140,7 @@ export default class Settings extends React.Component {
           <TouchableHighlight
             style={[styles.buttonLeft, this.state.selectedProperty === 'ChangeinPercent' ? styles.buttonSelected : null]}
             underlayColor="#66CCFF"
-            onPress={() => StockActions.selectProperty('ChangeinPercent')}
+            onPress={() => this.selectProperty('ChangeinPercent')}
           >
             <Text style={[styles.buttonText, this.state.selectedProperty === 'ChangeinPercent' ? styles.buttonTextSelected : null]}>
               percentage
@@ -188,7 +149,7 @@ export default class Settings extends React.Component {
           <TouchableHighlight
             style={[styles.buttonMiddle, this.state.selectedProperty === 'Change' ? styles.buttonSelected : null]}
             underlayColor="#66CCFF"
-            onPress={() => StockActions.selectProperty('Change')}
+            onPress={() => this.selectProperty('Change')}
           >
             <Text style={[styles.buttonText, this.state.selectedProperty === 'Change' ? styles.buttonTextSelected : null]}>
               price
@@ -197,7 +158,7 @@ export default class Settings extends React.Component {
           <TouchableHighlight
             style={[styles.buttonRight, this.state.selectedProperty === 'MarketCapitalization' ? styles.buttonSelected : null]}
             underlayColor="#66CCFF"
-            onPress={() => StockActions.selectProperty('MarketCapitalization')}
+            onPress={() => this.selectProperty('MarketCapitalization')}
           >
             <Text style={[styles.buttonText, this.state.selectedProperty === 'MarketCapitalization' ? styles.buttonTextSelected : null]}>
               market cap
@@ -211,8 +172,50 @@ export default class Settings extends React.Component {
 
 Settings.propTypes = {
   title: React.PropTypes.string,
+  actions: PropTypes.object.isRequired,
+  navigator: PropTypes.object,
+  watchlistResult: PropTypes.object.isRequired,
+  watchlist: PropTypes.array.isRequired,
+  selectedProperty: state.stock.selectedProperty
 };
 
 Settings.defaultProps = {
   title: '',
 };
+
+let navigatorStyle = {};
+
+if (Platform.OS === 'ios') {
+	navigatorStyle = {
+		navBarTranslucent: true,
+		drawUnderNavBar: true
+	};
+} else {
+	navigatorStyle = {
+		navBarBackgroundColor: '#0a0a0a'
+	};
+}
+
+Settings.navigatorStyle = {
+	...navigatorStyle,
+	statusBarColor: 'black',
+	statusBarTextColorScheme: 'light',
+	navBarTextColor: 'white',
+	navBarButtonColor: 'white'
+};
+
+function mapStateToProps(state, ownProps) {
+	return {
+    watchlistResult: state.stock.watchlistResult,
+		watchlist: state.stock.watchlist,
+    selectedProperty: state.stock.selectedProperty
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		actions: bindActionCreators(moviesActions, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

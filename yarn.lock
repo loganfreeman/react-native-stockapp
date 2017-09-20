@@ -4141,6 +4141,12 @@ react-native-modal@^3.1.0:
     prop-types "15.5.10"
     react-native-animatable "^1.2.3"
 
+react-native-navbar@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-navbar/-/react-native-navbar-2.0.1.tgz#f92098b3748b64430b803e3c3fe3666f2d3b45cb"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-navigation@1.1.84:
   version "1.1.84"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.84.tgz#f1686ada8372b0caaceca641dd86f7960c0a59e4"
