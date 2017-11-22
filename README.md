@@ -7,54 +7,7 @@
 | [Redux Thunk](https://github.com/gaearon/redux-thunk) | Thunk middleware for Redux |
 | [ESLint](http://eslint.org/) | The pluggable linting utility for JavaScript and JSX |
 
-### Requirements
-- [Node](https://nodejs.org/) >= 5.0.0
-- [npm](https://npmjs.com) >= 3
 
-### How to run
-```
-react-native run-android
-```
-
-### How to generate signed APK
-[signed-apk-android](https://facebook.github.io/react-native/docs/signed-apk-android.html)
-
-### Installation
-
-Clone this repo
-
-```sh
-$ git clone git@github.com:JuneDomingo/movieapp.git
-$ cd movieapp
-$ yarn install or npm install
-```
-
-Create `.env` file in your root directory and add the following
-
-```sh
-TMDB_URL=https://api.themoviedb.org/3
-TMDB_IMG_URL=https://image.tmdb.org/t/p
-TMDB_API_KEY=your_tmdb_api_key_here
-
-YOUTUBE_URL=https://www.googleapis.com/youtube/v3/videos
-YOUTUBE_API_KEY=your_youtube_api_key_here
-
-```
-Get api key -
-[TMDB](https://www.themoviedb.org/) -
-[Youtube](https://console.developers.google.com)
-
-### How to start
-```sh
-$ react-native run-android
-$ react-native run-ios
-```
-
-### How to change applicationId
-
-1. android/app/build.gradle
-2. android/app/src/main/AndroidManifest.xml
-3. `applicationId` in `build.gradle` has to match package name in `AndroidManifest.xml`
 
 # Default Installation instructions
 
